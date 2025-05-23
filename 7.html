@@ -7516,10 +7516,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="%E2%9C%85-Single-Linked-List-%E2%80%93-Easy-to-Advanced-Exercises">✅ <strong>Single Linked List – Easy to Advanced Exercises</strong><a class="anchor-link" href="#%E2%9C%85-Single-Linked-List-%E2%80%93-Easy-to-Advanced-Exercises">¶</a></h2><ol start="6">
-<li>Reverse the linked list (iterative and recursive dono se).</li>
-<li>Find middle element (Tortoise-Hare method).</li>
-<li>Check if linked list has loop (Floyd’s Cycle Detection).</li>
+<h2 id="%E2%9C%85-Single-Linked-List-%E2%80%93-Easy-to-Advanced-Exercises">✅ <strong>Single Linked List – Easy to Advanced Exercises</strong><a class="anchor-link" href="#%E2%9C%85-Single-Linked-List-%E2%80%93-Easy-to-Advanced-Exercises">¶</a></h2><ol start="9">
 <li>Detect and remove loop from a linked list.</li>
 <li>Remove duplicates from sorted/unsorted linked list.</li>
 </ol>
@@ -8274,17 +8271,6 @@ int main(){
 </div>
 </body></div>
 </div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=fb64b95f-95d7-4c0a-9ff7-7a74c14ece4e">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<img alt="No description has been provided for this image" src="./images/17.jpg" style="display: block;margin-left: auto; margin-right: auto;width:80%"/>
-</div>
-</div>
-</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=b32499ab-7452-4d5a-b26e-5921e117bdb5">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -8364,6 +8350,325 @@ int main(){
 </div>
 </div>
 </div>
-</div></div></div></div></div></main>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=bdf46606-37e1-4b5b-a194-e6ac27320f57">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<img alt="No description has been provided for this image" src="./images/17.jpg" style="display: block;margin-left: auto; margin-right: auto;width:80%"/>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=eff96211-2d73-4000-8ada-25b59b5513c9">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<body style="font-family: Sans-serif;">
+<div style="color: black; font-size: 15px; font-style: oblique; text-shadow: 0 0 3px white, 0 0 1px black; padding: 20px;">
+<ul>
+<li><h3 id="Detect-and-remove-loop-from-a-linked-list.">Detect and remove loop from a linked list.<a class="anchor-link" href="#Detect-and-remove-loop-from-a-linked-list.">¶</a></h3></li>
+</ul>
+</div>
+</body></div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=05fa7122-16ee-4c1b-a6ce-a8ca392fd826">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [26]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-text/markdown"><pre><span></span>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+void traverse(struct Node *n){
+    struct Node *tmp = n;
+    while(tmp != NULL){
+        printf("%d\n",tmp-&gt;data);
+        tmp = tmp-&gt;next;
+    }
+}
+
+
+int main(){
+    
+    struct Node *first,*second,*third,*forth;
+    
+    first = (struct Node *)malloc(sizeof(struct Node));
+    second = (struct Node *)malloc(sizeof(struct Node));
+    third = (struct Node *)malloc(sizeof(struct Node));
+    forth = (struct Node *)malloc(sizeof(struct Node));
+    
+    first-&gt;data = 10;
+    second-&gt;data = 20;
+    third-&gt;data = 30;
+    forth-&gt;data = 40;
+    
+    
+    first-&gt;next = second;
+    second-&gt;next = third;
+    third-&gt;next = forth;
+    forth-&gt;next = first;
+    
+        struct Node *slow,*fast,*temp;
+        slow = first;
+        fast = first;
+        
+        while(1){
+            
+            temp = slow; // for last linked list;
+            
+            slow = slow-&gt;next;
+            fast = fast-&gt;next-&gt;next;
+            
+            if (slow==fast){
+                
+                temp-&gt;next = NULL; // break the loop
+                break;
+            }
+    
+        }
+    
+    traverse(first);
+}
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-OutputArea-output" data-mime-type="text/markdown" tabindex="0">
+<p>10</p>
+<p>20</p>
+<p>30</p>
+<p>40</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=bda4281f-098c-4ded-a8ff-f10090d22c76">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<body style="font-family: Sans-serif;">
+<div style="color: black; font-size: 15px; font-style: oblique; text-shadow: 0 0 3px white, 0 0 1px black; padding: 20px;">
+<p>Agar fourth-&gt;next = first na ho (yaani cycle galat jagah se na lage), to code ka behavior galat ho sakta hai.</p>
+</div>
+</body></div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=6063231f-3c08-44d6-a5ee-bd2f60bcf460">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [27]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-text/markdown"><pre><span></span>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+void traverse(struct Node *n){
+    struct Node *tmp = n;
+    while(tmp != NULL){
+        printf("%d\n",tmp-&gt;data);
+        tmp = tmp-&gt;next;
+    }
+}
+
+
+int main(){
+    
+    struct Node *first,*second,*third,*forth;
+    
+    first = (struct Node *)malloc(sizeof(struct Node));
+    second = (struct Node *)malloc(sizeof(struct Node));
+    third = (struct Node *)malloc(sizeof(struct Node));
+    forth = (struct Node *)malloc(sizeof(struct Node));
+    
+    first-&gt;data = 10;
+    second-&gt;data = 20;
+    third-&gt;data = 30;
+    forth-&gt;data = 40;
+    
+    
+    first-&gt;next = second;
+    second-&gt;next = third;
+    third-&gt;next = forth;
+    
+    forth-&gt;next = third; // linked with third
+    
+        struct Node *slow,*fast,*temp;
+        slow = first;
+        fast = first;
+        
+        while(1){
+            
+            temp = slow; // for last linked list;
+            
+            slow = slow-&gt;next;
+            fast = fast-&gt;next-&gt;next;
+            
+            if (slow==fast){
+                
+                temp-&gt;next = NULL; // break the loop
+                break;
+            }
+    
+        }
+    
+    traverse(first);
+}
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-OutputArea-output" data-mime-type="text/markdown" tabindex="0">
+<p>10</p>
+<p>20</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=0113dbf7-aee0-441d-b115-04651f42687a">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<img alt="No description has been provided for this image" src="./images/18.jpg" style="display: block;margin-left: auto; margin-right: auto;width:80%"/>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=57cdc212-e6bc-4f25-af87-5f025335c24b">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<body style="font-family: Sans-serif;">
+<div style="color: black; font-size: 15px; font-style: oblique; text-shadow: 0 0 3px white, 0 0 1px black; padding: 20px;">
+<ul>
+<li><h3 id="Fix-the-Bug">Fix the Bug<a class="anchor-link" href="#Fix-the-Bug">¶</a></h3></li>
+</ul>
+</div>
+</body></div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=70442c62-2bad-4381-b494-c047a387fb0c">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [1]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-text/markdown"><pre><span></span>// #include &lt;stdio.h&gt;
+// #include &lt;stdlib.h&gt;
+
+// struct Node {
+//     int data;
+//     struct Node* next;
+// };
+
+// void traverse(struct Node *n){
+//     struct Node *tmp = n;
+//     while(tmp != NULL){
+//         printf("%d\n",tmp-&gt;data);
+//         tmp = tmp-&gt;next;
+//     }
+// }
+
+
+// int main(){
+    
+//     struct Node *first,*second,*third,*forth;
+    
+//     first = (struct Node *)malloc(sizeof(struct Node));
+//     second = (struct Node *)malloc(sizeof(struct Node));
+//     third = (struct Node *)malloc(sizeof(struct Node));
+//     forth = (struct Node *)malloc(sizeof(struct Node));
+    
+//     first-&gt;data = 10;
+//     second-&gt;data = 20;
+//     third-&gt;data = 30;
+//     forth-&gt;data = 40;
+    
+    
+//     first-&gt;next = second;
+//     second-&gt;next = third;
+//     third-&gt;next = forth;
+    
+//     forth-&gt;next = third; // linked with third
+    
+//         struct Node *slow,*fast,*temp;
+//         slow = first;
+//         fast = first;
+        
+//         while(1){
+            
+//                 temp = slow; // for last linked list;  
+//                 slow = slow-&gt;next;
+//                 fast = fast-&gt;next-&gt;next;
+            
+//             if (slow==fast){
+//                 temp-&gt;next = NULL; // break the loop
+//                 break;
+//             }
+    
+//         }
+    
+//     traverse(first);
+// }
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-OutputArea-output" data-mime-type="text/markdown" tabindex="0">
+<p>10</p>
+<p>20</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div></div></div></div></div></div></div></div></main>
 </body>
 </html>
